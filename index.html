@@ -4,20 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Archana-Sumit</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f4f6;font-family:Arial;color:#111}
-.app{max-width:500px;margin:auto;background:white;min-height:100vh}
-header{height:58px;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd;position:sticky;top:0;background:white;z-index:5}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f4f4;font-family:Arial;color:#222}
+.app{max-width:520px;margin:auto;background:white;min-height:100vh}
+header{position:sticky;top:0;background:white;border-bottom:1px solid #ddd;
+padding:14px 16px;display:flex;justify-content:space-between;align-items:center;z-index:5}
 .logo{font-size:22px;font-weight:bold}
-button{border:0;background:none;font-size:25px;cursor:pointer}
-.storybar{display:flex;gap:14px;padding:12px;overflow:hidden;border-bottom:1px solid #eee}
-.story{text-align:center;font-size:12px;min-width:62px}.circle{width:55px;height:55px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#f00,#f0c,#ff0)}
-.circle img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid white}
-.post{border-bottom:1px solid #ddd}.posthead{display:flex;align-items:center;padding:10px}.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover}.user{margin-left:9px;font-weight:bold}.photo{width:100%;height:420px;object-fit:cover;display:block}
-.actions{display:flex;gap:18px;padding:9px 12px}.actions button{font-size:25px}.save{margin-left:auto}
-.info{padding:0 12px 12px}.liked{color:#e11}.comments{display:none;padding:0 12px 12px}.comments input{width:80%;padding:9px;border:1px solid #ccc;border-radius:18px}.comments button{font-size:16px;background:#111;color:white;border-radius:15px;padding:7px}
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:500px;width:100%;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:8px}
-.panel{display:none;padding:25px;text-align:center;min-height:300px}
+button{border:0;background:none;font-size:22px;cursor:pointer}
+.page{padding-bottom:75px}
+.stories{display:flex;gap:14px;overflow:auto;padding:14px;border-bottom:1px solid #ddd}
+.story{min-width:65px;text-align:center;font-size:12px}
+.circle{width:58px;height:58px;border-radius:50%;background:linear-gradient(45deg,#ff7a00,#e60073,#743ad5);
+padding:3px;margin:auto}
+.circle div{background:#ddd;border-radius:50%;width:100%;height:100%;
+display:flex;align-items:center;justify-content:center;font-size:27px}
+.post{border-bottom:1px solid #ddd;margin-bottom:8px}
+.posthead{display:flex;align-items:center;padding:10px}
+.avatar{width:38px;height:38px;border-radius:50%;background:#ddd;
+display:flex;align-items:center;justify-content:center;margin-right:10px}
+.post img{width:100%;display:block;max-height:520px;object-fit:cover}
+video{width:100%;display:block;max-height:520px;background:#000}
+.actions{padding:8px 12px;display:flex;gap:18px}
+.actions button{font-size:25px}
+.liked{color:red}
+.caption{padding:0 12px 10px}
+.comments{display:none;padding:0 12px 10px}
+.comments p{margin:7px 0}
+.commentbox{display:flex;gap:5px}
+.commentbox input{flex:1;padding:9px;border:1px solid #ddd;border-radius:18px}
+.commentbox button{font-size:16px;background:#222;color:white;border-radius:18px;padding:7px 12px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+width:min(520px,100%);background:white;border-top:1px solid #ddd;
+display:flex;justify-content:space-around;padding:10px;z-index:10}
+.panel{display:none;padding:25px 18px;min-height:70vh}
+.panel h2{margin-top:0}
+input[type=file]{display:none}
+.upload{display:block;background:#222;color:white;text-align:center;
+padding:12px;border-radius:8px;margin:15px 0}
+.message{border:1px solid #ddd;padding:12px;border-radius:10px;margin:10px 0}
 </style>
 </head>
 
@@ -25,98 +51,217 @@ nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:500px;
 <div class="app">
 
 <header>
-<div class="logo">Archana-Sumit</div>
-<button onclick="openMsg()">💬</button>
+  <div class="logo">Archana-Sumit</div>
+  <div>
+    <button onclick="showPage('message')">✉️</button>
+    <button onclick="showPage('account')">👤</button>
+  </div>
 </header>
 
-<div class="storybar">
-<div class="story"><div class="circle"><img src="https://i.pravatar.cc/100?img=47"></div>Archana</div>
-<div class="story"><div class="circle"><img src="https://i.pravatar.cc/100?img=12"></div>Sumit</div>
-<div class="story"><div class="circle"><img src="https://i.pravatar.cc/100?img=32"></div>Friends</div>
+<div id="home" class="page">
+
+<div class="stories">
+  <div class="story"><div class="circle"><div>👩</div></div>Archana</div>
+  <div class="story"><div class="circle"><div>👨</div></div>Sumit</div>
+  <div class="story"><div class="circle"><div>❤️</div></div>Love</div>
+  <div class="story"><div class="circle"><div>📷</div></div>Photo</div>
 </div>
 
-<main id="home">
+<div id="posts">
 
 <div class="post">
 <div class="posthead">
-<img class="avatar" src="https://i.pravatar.cc/100?img=47">
-<span class="user">Archana</span>
+ <div class="avatar">👩</div>
+ <b>Archana</b>
 </div>
 
-<img class="photo" src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800">
+<img src="https://picsum.photos/700/700?random=21">
 
 <div class="actions">
-<button onclick="like(this)">♡</button>
-<button onclick="comment(this)">💬</button>
-<button onclick="openMsg()">➤</button>
-<button class="save" onclick="save(this)">🔖</button>
+ <button onclick="like(this)">♡</button>
+ <button onclick="toggleComment(this)">💬</button>
+ <button onclick="sharePost()">➤</button>
+ <button onclick="savePost(this)">🔖</button>
 </div>
 
-<div class="info"><b>❤️ <span>24</span> likes</b><br>
-<strong>Archana</strong> Beautiful day ✨</div>
+<div class="caption"><b>Archana</b> ❤️ Beautiful moment</div>
 
 <div class="comments">
-<div id="list"></div>
-<input placeholder="Comment likhiye..." />
-<button onclick="addComment(this)">Post</button>
+ <div class="list"></div>
+ <div class="commentbox">
+  <input placeholder="Comment likho...">
+  <button onclick="addComment(this)">Send</button>
+ </div>
 </div>
 </div>
 
-</main>
+
+<div class="post">
+<div class="posthead">
+ <div class="avatar">👨</div>
+ <b>Sumit</b>
+</div>
+
+<video controls>
+ <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+</video>
+
+<div class="actions">
+ <button onclick="like(this)">♡</button>
+ <button onclick="toggleComment(this)">💬</button>
+ <button onclick="sharePost()">➤</button>
+ <button onclick="savePost(this)">🔖</button>
+</div>
+
+<div class="caption"><b>Sumit</b> 🎥 Our video</div>
+
+<div class="comments">
+ <div class="list"></div>
+ <div class="commentbox">
+  <input placeholder="Comment likho...">
+  <button onclick="addComment(this)">Send</button>
+ </div>
+</div>
+</div>
+
+</div>
+</div>
+
 
 <div id="message" class="panel">
-<h2>💬 Messages</h2>
-<p>Yahan messages aayenge.</p>
-<button onclick="home()">← Home</button>
+<h2>Messages 💬</h2>
+<div class="message">👩 Archana<br><small>Hi Sumit ❤️</small></div>
+<div class="message">👨 Sumit<br><small>Hello 😊</small></div>
+<button onclick="newMessage()">✉️ New Message</button>
 </div>
+
 
 <div id="account" class="panel">
-<img class="avatar" src="https://i.pravatar.cc/100?img=47">
-<h2>Archana-Sumit</h2>
-<p>✨ Welcome to your profile</p>
-<button onclick="home()">← Home</button>
+<h2>👤 Sumit</h2>
+<p>@sumit</p>
+<hr>
+
+<label class="upload">
+📷 Photo / Video Upload
+<input type="file" accept="image/*,video/*" onchange="uploadFile(event)">
+</label>
+
+<button onclick="alert('Profile saved ✅')">💾 Save Profile</button>
 </div>
 
-<nav>
-<button onclick="home()">🏠</button>
-<button onclick="openMsg()">💬</button>
-<button onclick="account()">👤</button>
-</nav>
+
+<div class="bottom">
+<button onclick="showPage('home')">🏠</button>
+<button onclick="document.querySelector('input[type=file]').click()">➕</button>
+<button onclick="showPage('message')">💬</button>
+<button onclick="showPage('account')">👤</button>
+</div>
 
 </div>
 
 <script>
-function like(b){
- b.classList.toggle("liked");
- b.textContent=b.classList.contains("liked")?"♥":"♡";
- let n=b.parentElement.nextElementSibling.querySelector("span");
- n.textContent=+n.textContent+(b.classList.contains("liked")?1:-1);
+function showPage(id){
+  document.querySelectorAll('.page,.panel').forEach(x=>x.style.display='none');
+  document.getElementById(id).style.display='block';
+  window.scrollTo(0,0);
 }
-function comment(b){
- let c=b.closest(".post").querySelector(".comments");
- c.style.display=c.style.display=="block"?"none":"block";
+
+function like(btn){
+  btn.classList.toggle('liked');
+  btn.textContent=btn.classList.contains('liked')?'❤️':'♡';
 }
-function addComment(b){
- let i=b.previousElementSibling;
- if(i.value.trim()){
-  b.parentElement.querySelector("#list").innerHTML+=
-  "<p>👤 <b>Sumit</b> "+i.value+"</p>";
-  i.value="";
- }
+
+function toggleComment(btn){
+  let post=btn.closest('.post');
+  let box=post.querySelector('.comments');
+  box.style.display=box.style.display==='block'?'none':'block';
 }
-function save(b){b.textContent=b.textContent=="🔖"?"✅":"🔖"}
-function hide(){
- document.getElementById("home").style.display="none";
- document.getElementById("message").style.display="none";
- document.getElementById("account").style.display="none";
+
+function addComment(btn){
+  let box=btn.closest('.comments');
+  let input=box.querySelector('input');
+  let text=input.value.trim();
+
+  if(!text){
+    alert('Comment likho 😊');
+    return;
+  }
+
+  let p=document.createElement('p');
+  p.innerHTML='<b>Sumit</b> '+escapeHTML(text);
+  box.querySelector('.list').appendChild(p);
+  input.value='';
 }
-function home(){hide();document.getElementById("home").style.display="block"}
-function openMsg(){hide();document.getElementById("message").style.display="block"}
-function account(){hide();document.getElementById("account").style.display="block"}
+
+function savePost(btn){
+  btn.textContent=btn.textContent==='🔖'?'✅':'🔖';
+}
+
+function sharePost(){
+  if(navigator.share){
+    navigator.share({
+      title:'Archana-Sumit',
+      text:'Archana-Sumit post ❤️'
+    });
+  }else{
+    alert('Post shared ❤️');
+  }
+}
+
+function newMessage(){
+  let msg=prompt('Message likho:');
+  if(msg && msg.trim()){
+    alert('Message sent ✅');
+  }
+}
+
+function uploadFile(event){
+  let file=event.target.files[0];
+  if(!file)return;
+
+  let url=URL.createObjectURL(file);
+  let post=document.createElement('div');
+  post.className='post';
+
+  let media=file.type.startsWith('video/')
+    ? '<video controls src="'+url+'"></video>'
+    : '<img src="'+url+'">';
+
+  post.innerHTML=`
+  <div class="posthead">
+    <div class="avatar">👤</div><b>Sumit</b>
+  </div>
+  ${media}
+  <div class="actions">
+    <button onclick="like(this)">♡</button>
+    <button onclick="toggleComment(this)">💬</button>
+    <button onclick="sharePost()">➤</button>
+    <button onclick="savePost(this)">🔖</button>
+  </div>
+  <div class="caption"><b>Sumit</b> New post ❤️</div>
+  <div class="comments">
+    <div class="list"></div>
+    <div class="commentbox">
+      <input placeholder="Comment likho...">
+      <button onclick="addComment(this)">Send</button>
+    </div>
+  </div>`;
+
+  document.getElementById('posts').prepend(post);
+  showPage('home');
+}
+
+function escapeHTML(text){
+  let d=document.createElement('div');
+  d.textContent=text;
+  return d.innerHTML;
+}
+
+showPage('home');
 </script>
+
 </body>
 </html>
-
 
 
 
