@@ -1,72 +1,223 @@
 
-document.getElementById("results").innerHTML=
-  "<h3>Results</h3>"+
-  "<p>👤 archana_sumit</p>"+
-  "<p>👤 Friends</p>"+
-  "<p>🔎 "+q+"</p>";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Archana-Sumit</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#fafafa;font-family:Arial,sans-serif;color:#222;
+ padding-bottom:65px
+}
+header{
+ position:sticky;top:0;background:white;border-bottom:1px solid #ddd;
+ height:58px;display:flex;align-items:center;justify-content:space-between;
+ padding:0 15px;z-index:5
+}
+.logo{font-size:22px;font-weight:bold}
+.icon{font-size:24px;cursor:pointer}
+.search{padding:10px}
+.search input{
+ width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;
+ background:#f2f2f2
+}
+.stories{
+ display:flex;gap:15px;padding:12px;overflow-x:auto;background:white;
+ border-bottom:1px solid #ddd
+}
+.story{text-align:center;font-size:12px;min-width:62px}
+.avatar{
+ width:55px;height:55px;border-radius:50%;margin:auto;
+ background:linear-gradient(45deg,#ff9a00,#ff006a,#833ab4);
+ padding:3px
+}
+.avatar div{
+ background:white;border-radius:50%;height:100%;display:flex;
+ align-items:center;justify-content:center;font-size:25px
+}
+.post{
+ background:white;margin:10px 0;border-top:1px solid #ddd;
+ border-bottom:1px solid #ddd
+}
+.posthead{
+ display:flex;align-items:center;padding:10px;gap:10px;font-weight:bold
+}
+.smallavatar{
+ width:38px;height:38px;border-radius:50%;
+ background:linear-gradient(45deg,#ff006a,#833ab4);
+ display:flex;align-items:center;justify-content:center;color:white
+}
+.photo{
+ height:330px;background:linear-gradient(135deg,#ffd6e7,#d9c2ff);
+ display:flex;align-items:center;justify-content:center;
+ font-size:55px
+}
+.actions{display:flex;gap:18px;padding:10px;font-size:25px}
+.actions span{cursor:pointer}
+.likes,.caption,.comments{padding:0 12px 8px}
+.caption b{margin-right:5px}
+.comments{color:#777;cursor:pointer}
+.commentbox{display:none;padding:10px;border-top:1px solid #eee}
+.commentbox input{
+ width:75%;padding:9px;border:1px solid #ddd;border-radius:8px
+}
+.commentbox button{
+ padding:9px;border:0;border-radius:8px;background:#111;color:white
+}
+nav{
+ position:fixed;bottom:0;left:0;right:0;height:60px;background:white;
+ border-top:1px solid #ddd;display:flex;justify-content:space-around;
+ align-items:center;font-size:25px;z-index:10
+}
+.page{display:none}.active{display:block}
+.profile{text-align:center;padding:25px}
+.profile .big{
+ width:90px;height:90px;border-radius:50%;margin:auto;
+ background:linear-gradient(45deg,#ff006a,#833ab4);
+ display:flex;align-items:center;justify-content:center;
+ font-size:40px;color:white
+}
+button.follow{
+ margin-top:12px;padding:10px 30px;border:0;border-radius:8px;
+ background:#111;color:white
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">Archana-Sumit</div>
+<div class="icon" onclick="show('profile')">♡</div>
+</header>
+
+<section id="home" class="page active">
+
+<div class="search">
+<input id="search" oninput="searchPost()" placeholder="Search">
+</div>
+
+<div class="stories">
+<div class="story"><div class="avatar"><div>+</div></div>Your story</div>
+<div class="story"><div class="avatar"><div>👩</div></div>Archana</div>
+<div class="story"><div class="avatar"><div>👨</div></div>Sumit</div>
+<div class="story"><div class="avatar"><div>❤️</div></div>Friends</div>
+</div>
+
+<div id="feed">
+
+<div class="post">
+<div class="posthead">
+<div class="smallavatar">A</div>
+archana_sumit
+</div>
+
+<div class="photo">❤️</div>
+
+<div class="actions">
+<span onclick="like(this)">♡</span>
+<span onclick="comment(this)">💬</span>
+<span onclick="sharePost()">➤</span>
+<span style="margin-left:auto">♡</span>
+</div>
+
+<div class="likes">0 likes</div>
+
+<div class="caption">
+<b>archana_sumit</b> New post ❤️
+</div>
+
+<div class="comments" onclick="comment(this)">
+View all comments
+</div>
+
+<div class="commentbox">
+<input placeholder="Add a comment...">
+<button onclick="postComment(this)">Post</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="profile" class="page">
+<div class="profile">
+<div class="big">❤️</div>
+<h2>archana_sumit</h2>
+<p>Archana ❤️ Sumit</p>
+<button class="follow" onclick="follow(this)">Follow</button>
+</div>
+</section>
+
+<nav>
+<span onclick="show('home')">⌂</span>
+<span onclick="document.getElementById('search').focus()">⌕</span>
+<span onclick="addPost()">＋</span>
+<span onclick="show('profile')">♡</span>
+</nav>
+
+<script>
+function show(id){
+ document.querySelectorAll('.page').forEach(function(p){
+  p.classList.remove('active');
+ });
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0,0);
 }
 
-function upload(){
-  document.getElementById("file").click();
+function like(el){
+ var post=el.closest('.post');
+ var likes=post.querySelector('.likes');
+ var n=parseInt(likes.dataset.n || 0);
+ n=n===0?1:0;
+ likes.dataset.n=n;
+ likes.textContent=n+" likes";
+ el.textContent=n?"♥":"♡";
 }
 
-function newPost(e){
-
-  let file=e.target.files[0];
-  if(!file)return;
-
-  let url=URL.createObjectURL(file);
-
-  let post=document.createElement("div");
-  post.className="post";
-
-  post.innerHTML=`
-  <div class="posthead">
-    <img class="avatar"
-    src="https://i.pravatar.cc/150?img=12">
-    <span class="username">archana_sumit</span>
-    <span class="more">•••</span>
-  </div>
-
-  <img class="photo" src="${url}">
-
-  <div class="actions">
-    <span onclick="like(this)">♡</span>
-    <span onclick="toggleComment(this)">💬</span>
-    <span onclick="share()">➤</span>
-    <span class="save" onclick="save(this)">♡</span>
-  </div>
-
-  <div class="likes">0 likes</div>
-
-  <div class="caption">
-    <b>archana_sumit</b> New post ❤️
-  </div>
-
-  <div class="comments"
-  onclick="toggleComment(this)">
-  View all comments
-  </div>
-
-  <div class="commentbox">
-    <input placeholder="Add a comment...">
-    <button onclick="postComment(this)">Post</button>
-  </div>
-  `;
-
-  document.getElementById("home").appendChild(post);
-
-  show("home");
-  window.scrollTo(0,0);
+function comment(el){
+ var post=el.closest('.post');
+ var box=post.querySelector('.commentbox');
+ box.style.display=box.style.display==="block"?"none":"block";
 }
 
+function postComment(btn){
+ var box=btn.parentElement;
+ var input=box.querySelector('input');
+ if(input.value.trim()==="")return;
+
+ var p=document.createElement('div');
+ p.style.padding="8px 0";
+ p.innerHTML="<b>You</b> "+input.value;
+ box.parentElement.insertBefore(p,box);
+ input.value="";
+}
+
+function sharePost(){
+ alert("Post share option opened ❤️");
+}
+
+function follow(btn){
+ btn.textContent=btn.textContent==="Follow"?"Following":"Follow";
+}
+
+function searchPost(){
+ var q=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('.post').forEach(function(p){
+  p.style.display=p.innerText.toLowerCase().includes(q)?"block":"none";
+ });
+}
+
+function addPost(){
+ alert("New post feature ❤️");
+}
 </script>
 
 </body>
 </html>
-
-
-
 
 
 
