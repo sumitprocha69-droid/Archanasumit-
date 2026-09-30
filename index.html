@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,216 +9,246 @@
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#fafafa;font-family:Arial,sans-serif;color:#222;
- padding-bottom:65px
+ margin:0;background:#f5f5f5;font-family:Arial,sans-serif;
+ padding-bottom:65px;color:#222
 }
 header{
- position:sticky;top:0;background:white;border-bottom:1px solid #ddd;
- height:58px;display:flex;align-items:center;justify-content:space-between;
- padding:0 15px;z-index:5
+ position:sticky;top:0;z-index:5;background:white;
+ padding:13px 16px;border-bottom:1px solid #ddd;
+ font-size:22px;font-weight:bold
 }
-.logo{font-size:22px;font-weight:bold}
-.icon{font-size:24px;cursor:pointer}
-.search{padding:10px}
-.search input{
- width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;
- background:#f2f2f2
-}
-.stories{
- display:flex;gap:15px;padding:12px;overflow-x:auto;background:white;
- border-bottom:1px solid #ddd
-}
-.story{text-align:center;font-size:12px;min-width:62px}
-.avatar{
- width:55px;height:55px;border-radius:50%;margin:auto;
- background:linear-gradient(45deg,#ff9a00,#ff006a,#833ab4);
- padding:3px
-}
-.avatar div{
- background:white;border-radius:50%;height:100%;display:flex;
- align-items:center;justify-content:center;font-size:25px
-}
+.page{display:none;max-width:600px;margin:auto}
+.page.active{display:block}
+
 .post{
  background:white;margin:10px 0;border-top:1px solid #ddd;
  border-bottom:1px solid #ddd
 }
 .posthead{
- display:flex;align-items:center;padding:10px;gap:10px;font-weight:bold
+ display:flex;align-items:center;padding:10px;gap:10px
 }
-.smallavatar{
- width:38px;height:38px;border-radius:50%;
- background:linear-gradient(45deg,#ff006a,#833ab4);
- display:flex;align-items:center;justify-content:center;color:white
-}
-.photo{
- height:330px;background:linear-gradient(135deg,#ffd6e7,#d9c2ff);
+.avatar{
+ width:40px;height:40px;border-radius:50%;
+ background:linear-gradient(45deg,#f06,#833ab4);
  display:flex;align-items:center;justify-content:center;
- font-size:55px
+ color:white;font-weight:bold
 }
-.actions{display:flex;gap:18px;padding:10px;font-size:25px}
+.name{font-weight:bold}
+.photo{
+ height:330px;background:linear-gradient(135deg,#ffd6e7,#d8c7ff);
+ display:flex;align-items:center;justify-content:center;
+ font-size:65px
+}
+.actions{display:flex;gap:20px;padding:10px;font-size:26px}
 .actions span{cursor:pointer}
 .likes,.caption,.comments{padding:0 12px 8px}
 .caption b{margin-right:5px}
 .comments{color:#777;cursor:pointer}
-.commentbox{display:none;padding:10px;border-top:1px solid #eee}
+
+.commentbox{
+ display:none;padding:10px;border-top:1px solid #ddd
+}
 .commentbox input{
- width:75%;padding:9px;border:1px solid #ddd;border-radius:8px
+ width:75%;padding:9px;border:1px solid #ccc;border-radius:8px
 }
 .commentbox button{
- padding:9px;border:0;border-radius:8px;background:#111;color:white
+ padding:9px;border:0;border-radius:8px;background:#222;color:white
 }
+
 nav{
- position:fixed;bottom:0;left:0;right:0;height:60px;background:white;
- border-top:1px solid #ddd;display:flex;justify-content:space-around;
- align-items:center;font-size:25px;z-index:10
+ position:fixed;bottom:0;left:0;right:0;height:60px;
+ background:white;border-top:1px solid #ddd;
+ display:flex;justify-content:space-around;align-items:center;
+ font-size:25px;z-index:10
 }
-.page{display:none}.active{display:block}
+nav span{cursor:pointer;padding:10px}
+
 .profile{text-align:center;padding:25px}
-.profile .big{
+.big{
  width:90px;height:90px;border-radius:50%;margin:auto;
- background:linear-gradient(45deg,#ff006a,#833ab4);
+ background:linear-gradient(45deg,#f06,#833ab4);
  display:flex;align-items:center;justify-content:center;
  font-size:40px;color:white
 }
-button.follow{
- margin-top:12px;padding:10px 30px;border:0;border-radius:8px;
- background:#111;color:white
+.msg{
+ background:white;margin:10px;padding:15px;border-radius:12px
+}
+input.message{
+ width:70%;padding:10px;border:1px solid #ccc;border-radius:8px
+}
+button.send{
+ padding:10px;border:0;border-radius:8px;background:#111;color:white
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">Archana-Sumit</div>
-<div class="icon" onclick="show('profile')">♡</div>
-</header>
+<header>Archana-Sumit</header>
 
+<!-- HOME -->
 <section id="home" class="page active">
 
-<div class="search">
-<input id="search" oninput="searchPost()" placeholder="Search">
-</div>
+<div class="post">
+ <div class="posthead">
+  <div class="avatar">A</div>
+  <div class="name">Archana</div>
+ </div>
 
-<div class="stories">
-<div class="story"><div class="avatar"><div>+</div></div>Your story</div>
-<div class="story"><div class="avatar"><div>👩</div></div>Archana</div>
-<div class="story"><div class="avatar"><div>👨</div></div>Sumit</div>
-<div class="story"><div class="avatar"><div>❤️</div></div>Friends</div>
-</div>
+ <div class="photo">📷</div>
 
-<div id="feed">
+ <div class="actions">
+  <span onclick="like(this)">♡</span>
+  <span onclick="comment(this)">💬</span>
+  <span onclick="alert('Message sent ❤️')">✈️</span>
+ </div>
+
+ <div class="likes">0 likes</div>
+ <div class="caption"><b>Archana</b> Beautiful day ❤️</div>
+ <div class="comments" onclick="comment(this)">View comments</div>
+
+ <div class="commentbox">
+  <input placeholder="Comment likho...">
+  <button onclick="addComment(this)">Post</button>
+  <div class="newcomments"></div>
+ </div>
+</div>
 
 <div class="post">
-<div class="posthead">
-<div class="smallavatar">A</div>
-archana_sumit
+ <div class="posthead">
+  <div class="avatar">S</div>
+  <div class="name">Sumit</div>
+ </div>
+
+ <div class="photo">🎥</div>
+
+ <div class="actions">
+  <span onclick="like(this)">♡</span>
+  <span onclick="comment(this)">💬</span>
+  <span onclick="alert('Message sent ❤️')">✈️</span>
+ </div>
+
+ <div class="likes">0 likes</div>
+ <div class="caption"><b>Sumit</b> Archana-Sumit ❤️</div>
+ <div class="comments" onclick="comment(this)">View comments</div>
+
+ <div class="commentbox">
+  <input placeholder="Comment likho...">
+  <button onclick="addComment(this)">Post</button>
+  <div class="newcomments"></div>
+ </div>
 </div>
 
-<div class="photo">❤️</div>
+</section>
 
-<div class="actions">
-<span onclick="like(this)">♡</span>
-<span onclick="comment(this)">💬</span>
-<span onclick="sharePost()">➤</span>
-<span style="margin-left:auto">♡</span>
-</div>
-
-<div class="likes">0 likes</div>
-
-<div class="caption">
-<b>archana_sumit</b> New post ❤️
-</div>
-
-<div class="comments" onclick="comment(this)">
-View all comments
-</div>
-
-<div class="commentbox">
-<input placeholder="Add a comment...">
-<button onclick="postComment(this)">Post</button>
-</div>
-</div>
-
+<!-- SEARCH -->
+<section id="search" class="page">
+<div style="padding:20px">
+<h2>🔍 Search</h2>
+<input style="width:100%;padding:13px;border:1px solid #ccc;border-radius:10px"
+placeholder="Search...">
 </div>
 </section>
 
-<section id="profile" class="page">
+<!-- MESSAGE -->
+<section id="messages" class="page">
+<div style="padding:15px">
+<h2>💬 Messages</h2>
+<div class="msg">❤️ Archana<br><small>Online</small></div>
+<div class="msg">👤 Sumit<br><small>Message karo...</small></div>
+
+<div style="margin-top:20px">
+<input class="message" id="msgInput" placeholder="Message...">
+<button class="send" onclick="sendMsg()">Send</button>
+</div>
+<div id="sent"></div>
+</div>
+</section>
+
+<!-- ACCOUNT -->
+<section id="account" class="page">
 <div class="profile">
-<div class="big">❤️</div>
-<h2>archana_sumit</h2>
-<p>Archana ❤️ Sumit</p>
-<button class="follow" onclick="follow(this)">Follow</button>
+ <div class="big">S</div>
+ <h2>Sumit</h2>
+ <p>@archana-sumit</p>
+ <p>❤️ Archana-Sumit ❤️</p>
+
+ <div style="display:flex;justify-content:space-around;margin-top:25px">
+  <b>2<br><small>Posts</small></b>
+  <b>120<br><small>Followers</small></b>
+  <b>80<br><small>Following</small></b>
+ </div>
+
+ <button onclick="alert('Profile edit option')" 
+ style="margin-top:25px;padding:11px 30px;border:0;border-radius:9px">
+ Edit Profile
+ </button>
 </div>
 </section>
 
+<!-- BOTTOM -->
 <nav>
-<span onclick="show('home')">⌂</span>
-<span onclick="document.getElementById('search').focus()">⌕</span>
-<span onclick="addPost()">＋</span>
-<span onclick="show('profile')">♡</span>
+<span onclick="show('home')">🏠</span>
+<span onclick="show('search')">🔍</span>
+<span onclick="show('messages')">💬</span>
+<span onclick="show('account')">👤</span>
 </nav>
 
 <script>
 function show(id){
- document.querySelectorAll('.page').forEach(function(p){
-  p.classList.remove('active');
- });
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  window.scrollTo(0,0);
 }
 
 function like(el){
- var post=el.closest('.post');
- var likes=post.querySelector('.likes');
- var n=parseInt(likes.dataset.n || 0);
- n=n===0?1:0;
- likes.dataset.n=n;
- likes.textContent=n+" likes";
- el.textContent=n?"♥":"♡";
+ let post=el.closest('.post');
+ let likes=post.querySelector('.likes');
+ let n=parseInt(likes.innerText)||0;
+
+ if(el.innerText==='♡'){
+  el.innerText='♥️';
+  likes.innerText=(n+1)+' likes';
+ }else{
+  el.innerText='♡';
+  likes.innerText=Math.max(0,n-1)+' likes';
+ }
 }
 
 function comment(el){
- var post=el.closest('.post');
- var box=post.querySelector('.commentbox');
- box.style.display=box.style.display==="block"?"none":"block";
+ let box=el.closest('.post').querySelector('.commentbox');
+ box.style.display=box.style.display==='block'?'none':'block';
 }
 
-function postComment(btn){
- var box=btn.parentElement;
- var input=box.querySelector('input');
- if(input.value.trim()==="")return;
+function addComment(btn){
+ let box=btn.closest('.commentbox');
+ let input=box.querySelector('input');
+ let text=input.value.trim();
 
- var p=document.createElement('div');
- p.style.padding="8px 0";
- p.innerHTML="<b>You</b> "+input.value;
- box.parentElement.insertBefore(p,box);
- input.value="";
+ if(!text)return;
+
+ let div=document.createElement('div');
+ div.style.padding='8px 0';
+ div.innerHTML='<b>You</b> '+text;
+
+ box.querySelector('.newcomments').appendChild(div);
+ input.value='';
 }
 
-function sharePost(){
- alert("Post share option opened ❤️");
-}
+function sendMsg(){
+ let input=document.getElementById('msgInput');
+ let text=input.value.trim();
+ if(!text)return;
 
-function follow(btn){
- btn.textContent=btn.textContent==="Follow"?"Following":"Follow";
-}
+ document.getElementById('sent').innerHTML +=
+ '<div class="msg">You: '+text+'</div>';
 
-function searchPost(){
- var q=document.getElementById('search').value.toLowerCase();
- document.querySelectorAll('.post').forEach(function(p){
-  p.style.display=p.innerText.toLowerCase().includes(q)?"block":"none";
- });
-}
-
-function addPost(){
- alert("New post feature ❤️");
+ input.value='';
 }
 </script>
 
 </body>
 </html>
-
 
 
 
