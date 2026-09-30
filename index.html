@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,255 +7,648 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#fafafa;font-family:Arial,sans-serif;color:#111}
-header{
- position:sticky;top:0;z-index:10;background:white;
- border-bottom:1px solid #ddd;padding:12px 15px;
- display:flex;justify-content:space-between;align-items:center
+body{
+  margin:0;background:#fafafa;color:#111;
+  font-family:Arial,sans-serif;
 }
-.logo{font-size:24px;font-weight:bold}
-nav{display:flex;gap:18px;font-size:24px}
-main{max-width:600px;margin:auto;padding-bottom:70px}
-.post{background:white;border-bottom:1px solid #ddd;margin-bottom:12px}
-.head{display:flex;align-items:center;padding:12px}
+header{
+  position:sticky;top:0;z-index:20;
+  height:64px;background:#fff;
+  border-bottom:1px solid #ddd;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+}
+.logo{font-size:25px;font-weight:700}
+.topbtn{
+  border:0;background:none;font-size:27px;
+  cursor:pointer;margin:0 5px;
+}
+main{
+  max-width:600px;margin:auto;
+  padding-bottom:75px;
+}
+.stories{
+  display:flex;gap:22px;padding:12px 18px;
+  background:#fff;border-bottom:1px solid #ddd;
+}
+.story{text-align:center;font-size:15px}
+.storypic{
+  width:66px;height:66px;border-radius:50%;
+  padding:3px;
+  background:linear-gradient(45deg,#ff7a00,#ff006a,#833ab4);
+}
+.storyinner{
+  width:100%;height:100%;border-radius:50%;
+  background:#eee;display:grid;place-items:center;
+  font-size:30px;
+}
+.post{
+  background:#fff;border-bottom:1px solid #ddd;
+  margin-bottom:10px;
+}
+.head{
+  display:flex;align-items:center;padding:12px;
+}
 .avatar{
- width:40px;height:40px;border-radius:50%;
- background:linear-gradient(45deg,#ff7a00,#ff006a,#833ab4);
- display:grid;place-items:center;color:white;font-weight:bold
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(45deg,#ff7a00,#ff006a);
+  display:grid;place-items:center;
+  color:white;font-weight:bold;font-size:20px;
 }
 .username{font-weight:bold;margin-left:10px}
-.more{margin-left:auto;font-size:22px}
+.more{margin-left:auto;font-size:23px;cursor:pointer}
 .media{
- width:100%;height:430px;background:#eee;
- display:flex;align-items:center;justify-content:center;
- overflow:hidden
+  width:100%;height:430px;background:#eee;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
 }
-.media img,.media video{width:100%;height:100%;object-fit:cover}
-.placeholder{font-size:70px}
-.actions{display:flex;gap:18px;padding:12px 14px;font-size:27px}
+.media img,.media video{
+  width:100%;height:100%;object-fit:cover;
+}
+.placeholder{
+  font-size:75px;
+  background:linear-gradient(135deg,#f8dff4,#e9e8ff);
+  width:100%;height:100%;
+  display:flex;align-items:center;
+  justify-content:center;
+}
+.actions{
+  display:flex;align-items:center;
+  gap:18px;padding:12px 14px;
+  font-size:28px;
+}
 .actions span{cursor:pointer}
 .save{margin-left:auto}
-.likes,.caption,.comments{padding:0 14px 8px}
+.likes,.caption,.comments{
+  padding:0 14px 9px;
+}
+.likes{font-weight:bold}
 .caption b{margin-right:5px}
-.comments{color:#666;cursor:pointer}
+.comments{color:#777;cursor:pointer}
 .bottom{
- position:fixed;bottom:0;left:0;right:0;background:white;
- border-top:1px solid #ddd;display:flex;justify-content:space-around;
- padding:12px;font-size:24px
+  position:fixed;bottom:0;left:0;right:0;
+  height:62px;background:#fff;
+  border-top:1px solid #ddd;
+  display:flex;justify-content:space-around;
+  align-items:center;font-size:27px;
+  z-index:25;
 }
-button{
- border:0;background:#111;color:white;border-radius:10px;
- padding:10px 15px;margin:10px;cursor:pointer
+.bottom span{cursor:pointer}
+.screen{
+  display:none;
+  position:fixed;inset:0;
+  background:#fff;z-index:40;
+  overflow:auto;
 }
-#upload{display:none}
+.screenHeader{
+  height:64px;border-bottom:1px solid #ddd;
+  display:flex;align-items:center;
+  padding:0 15px;font-size:20px;font-weight:bold;
+}
+.back{font-size:28px;margin-right:20px;cursor:pointer}
+.searchbox{
+  margin:18px;
+  display:flex;gap:8px;
+}
+.searchbox input{
+  flex:1;padding:13px;border:1px solid #ccc;
+  border-radius:12px;font-size:16px;
+}
+.searchbox button,.primary{
+  background:#111;color:#fff;
+  border:0;border-radius:10px;
+  padding:12px 16px;cursor:pointer;
+}
+.searchresult{
+  margin:15px;padding:15px;
+  border:1px solid #ddd;border-radius:12px;
+}
+.message{
+  margin:15px;padding:15px;
+  background:#f1f1f1;border-radius:15px;
+}
+.profile{
+  text-align:center;padding:30px;
+}
+.profile .bigavatar{
+  width:100px;height:100px;border-radius:50%;
+  margin:auto;
+  background:linear-gradient(45deg,#ff7a00,#ff006a);
+  color:#fff;font-size:45px;
+  display:grid;place-items:center;
+}
+.profile h2{margin-bottom:5px}
+.addarea{text-align:center;padding:12px}
+.addarea button{
+  background:#111;color:#fff;border:0;
+  padding:12px 18px;border-radius:10px;
+  cursor:pointer;
+}
+input[type=file]{display:none}
 .modal{
- display:none;position:fixed;inset:0;background:#0008;
- z-index:30;align-items:flex-end
+  display:none;position:fixed;inset:0;
+  background:#0008;z-index:60;
+  align-items:flex-end;
 }
 .box{
- background:white;width:100%;max-width:600px;margin:auto;
- padding:20px;border-radius:20px 20px 0 0
+  background:#fff;width:100%;max-width:600px;
+  margin:auto;padding:20px;
+  border-radius:20px 20px 0 0;
 }
-textarea{width:100%;height:80px;padding:10px;border:1px solid #ccc;border-radius:10px}
+textarea{
+  width:100%;height:85px;
+  border:1px solid #ccc;border-radius:10px;
+  padding:10px;font-size:16px;
+}
+.box button{
+  border:0;border-radius:9px;
+  padding:10px 15px;margin:8px 5px 0 0;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">Archana-Sumit</div>
-<nav>
-<span onclick="home()">⌂</span>
-<span onclick="document.getElementById('upload').click()">＋</span>
-<span onclick="alert('Messages opened 💬')">♡</span>
-</nav>
+  <button class="topbtn" onclick="showSearch()">⌕</button>
+  <div class="logo">Archana-Sumit</div>
+  <button class="topbtn" onclick="showMessages()">♡</button>
 </header>
 
 <main id="feed">
 
-<!-- POST 1 -->
+<div class="stories">
+  <div class="story">
+    <div class="storypic"><div class="storyinner">👩</div></div>
+    Archana
+  </div>
+
+  <div class="story">
+    <div class="storypic"><div class="storyinner">👨</div></div>
+    Sumit
+  </div>
+</div>
+
+<!-- ARCHANA POST -->
 <div class="post">
+
 <div class="head">
-<div class="avatar">A</div>
-<div class="username">Archana</div>
-<div class="more">•••</div>
+  <div class="avatar">A</div>
+  <div class="username">Archana</div>
+  <div class="more" onclick="postMenu()">•••</div>
 </div>
 
 <div class="media">
-<div class="placeholder">🌸❤️</div>
+  <div class="placeholder">🌸 ❤️</div>
 </div>
 
 <div class="actions">
-<span onclick="like(this)">♡</span>
-<span onclick="comment()">💬</span>
-<span onclick="share()">➤</span>
-<span class="save" onclick="save(this)">♡</span>
+  <span onclick="like(this)">♡</span>
+  <span onclick="openComments()">💬</span>
+  <span onclick="sharePost()">➤</span>
+  <span class="save" onclick="savePost(this)">♡</span>
 </div>
 
-<div class="likes">❤️ <span class="count">12</span> likes</div>
-<div class="caption"><b>Archana</b> ❤️ Archana-Sumit</div>
-<div class="comments" onclick="comment()">View all comments</div>
+<div class="likes">
+  ❤️ <span class="count">12</span> likes
+</div>
+
+<div class="caption">
+  <b>Archana</b> ❤️ Archana-Sumit
+</div>
+
+<div class="comments" onclick="openComments()">
+  View all comments
+</div>
+
 </div>
 
 
-<!-- POST 2 -->
+<!-- SUMIT POST -->
 <div class="post">
+
 <div class="head">
-<div class="avatar">S</div>
-<div class="username">Sumit</div>
-<div class="more">•••</div>
+  <div class="avatar">S</div>
+  <div class="username">Sumit</div>
+  <div class="more" onclick="postMenu()">•••</div>
 </div>
 
 <div class="media">
-<div class="placeholder">📸✨</div>
+  <div class="placeholder">📸 ✨</div>
 </div>
 
 <div class="actions">
-<span onclick="like(this)">♡</span>
-<span onclick="comment()">💬</span>
-<span onclick="share()">➤</span>
-<span class="save" onclick="save(this)">♡</span>
+  <span onclick="like(this)">♡</span>
+  <span onclick="openComments()">💬</span>
+  <span onclick="sharePost()">➤</span>
+  <span class="save" onclick="savePost(this)">♡</span>
 </div>
 
-<div class="likes">❤️ <span class="count">8</span> likes</div>
-<div class="caption"><b>Sumit</b> Our beautiful memories ❤️</div>
-<div class="comments" onclick="comment()">View all comments</div>
+<div class="likes">
+  ❤️ <span class="count">8</span> likes
+</div>
+
+<div class="caption">
+  <b>Sumit</b> Our beautiful memories ❤️
+</div>
+
+<div class="comments" onclick="openComments()">
+  View all comments
+</div>
+
 </div>
 
 </main>
 
-<div style="text-align:center">
-<label for="upload"><button>＋ Add Photo / Video</button></label>
-<input id="upload" type="file" accept="image/*,video/*" onchange="addPost(event)">
+<div class="addarea">
+<label for="upload">
+<button>＋ Add Photo / Video</button>
+</label>
+<input id="upload" type="file"
+accept="image/*,video/*"
+onchange="addPost(event)">
 </div>
 
-<div class="bottom">
-<span onclick="home()">⌂</span>
-<span onclick="alert('Search 🔍')">⌕</span>
-<span onclick="document.getElementById('upload').click()">＋</span>
-<span onclick="alert('Messages 💬')">♡</span>
-<span onclick="alert('Profile 👤')">◯</span>
+
+<!-- SEARCH SCREEN -->
+<div class="screen" id="searchScreen">
+
+<div class="screenHeader">
+<span class="back" onclick="closeScreens()">‹</span>
+Search
 </div>
 
-<div class="modal" id="modal">
+<div class="searchbox">
+<input id="searchInput"
+placeholder="Search Archana-Sumit..."
+oninput="doSearch()">
+<button onclick="doSearch()">Search</button>
+</div>
+
+<div id="searchResult"></div>
+
+</div>
+
+
+<!-- MESSAGE SCREEN -->
+<div class="screen" id="messageScreen">
+
+<div class="screenHeader">
+<span class="back" onclick="closeScreens()">‹</span>
+Messages
+</div>
+
+<div class="message">
+<b>Archana ❤️</b>
+<br><br>
+Hello Sumit 😊
+</div>
+
+<div class="message">
+<b>Sumit</b>
+<br><br>
+Hi Archana ❤️
+</div>
+
+</div>
+
+
+<!-- PROFILE SCREEN -->
+<div class="screen" id="profileScreen">
+
+<div class="screenHeader">
+<span class="back" onclick="closeScreens()">‹</span>
+Profile
+</div>
+
+<div class="profile">
+<div class="bigavatar">S</div>
+<h2>Sumit</h2>
+<p>Archana-Sumit ❤️</p>
+<button class="primary" onclick="closeScreens()">View Posts</button>
+</div>
+
+</div>
+
+
+<!-- COMMENTS -->
+<div class="modal" id="commentModal">
+
 <div class="box">
+
 <h3>Comments</h3>
-<textarea id="commentText" placeholder="Comment likho..."></textarea>
+
+<div id="commentList">
+<p>No comments yet.</p>
+</div>
+
+<textarea id="commentText"
+placeholder="Comment likho..."></textarea>
+
 <br>
+
 <button onclick="addComment()">Post</button>
-<button onclick="closeComment()">Close</button>
-<div id="commentList"></div>
+<button onclick="closeComments()">Close</button>
+
 </div>
+
 </div>
+
+
+<!-- BOTTOM NAV -->
+<div class="bottom">
+
+<span onclick="goHome()">⌂</span>
+
+<span onclick="showSearch()">⌕</span>
+
+<span onclick="document.getElementById('upload').click()">＋</span>
+
+<span onclick="showMessages()">♡</span>
+
+<span onclick="showProfile()">◯</span>
+
+</div>
+
 
 <script>
 
+function goHome(){
+  closeScreens();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function showSearch(){
+  closeScreens();
+  document.getElementById("searchScreen").style.display="block";
+  document.getElementById("searchInput").focus();
+}
+
+
+function showMessages(){
+  closeScreens();
+  document.getElementById("messageScreen").style.display="block";
+}
+
+
+function showProfile(){
+  closeScreens();
+  document.getElementById("profileScreen").style.display="block";
+}
+
+
+function closeScreens(){
+  document.querySelectorAll(".screen").forEach(function(x){
+    x.style.display="none";
+  });
+}
+
+
+function doSearch(){
+
+  let q=document.getElementById("searchInput")
+    .value.toLowerCase().trim();
+
+  let result=document.getElementById("searchResult");
+
+  if(!q){
+    result.innerHTML="";
+    return;
+  }
+
+  if(q.includes("archana")){
+    result.innerHTML=`
+      <div class="searchresult">
+      👩 <b>Archana</b>
+      <br>
+      <small>Archana-Sumit</small>
+      </div>
+    `;
+  }
+
+  else if(q.includes("sumit")){
+    result.innerHTML=`
+      <div class="searchresult">
+      👨 <b>Sumit</b>
+      <br>
+      <small>Archana-Sumit</small>
+      </div>
+    `;
+  }
+
+  else{
+    result.innerHTML=`
+      <div class="searchresult">
+      No result found for "<b>${q}</b>"
+      </div>
+    `;
+  }
+}
+
+
 function like(el){
- let post=el.closest(".post");
- let count=post.querySelector(".count");
- let n=parseInt(count.innerText);
 
- if(el.dataset.liked==="yes"){
-   el.innerText="♡";
-   count.innerText=n-1;
-   el.dataset.liked="no";
- }else{
-   el.innerText="♥";
-   count.innerText=n+1;
-   el.dataset.liked="yes";
- }
+  let post=el.closest(".post");
+  let count=post.querySelector(".count");
+  let number=parseInt(count.innerText);
+
+  if(el.dataset.liked==="yes"){
+
+    el.innerText="♡";
+    count.innerText=number-1;
+    el.dataset.liked="no";
+
+  }else{
+
+    el.innerText="♥";
+    count.innerText=number+1;
+    el.dataset.liked="yes";
+
+  }
 }
 
-function save(el){
- if(el.dataset.saved==="yes"){
-   el.innerText="♡";
-   el.dataset.saved="no";
-   alert("Removed from saved");
- }else{
-   el.innerText="🔖";
-   el.dataset.saved="yes";
-   alert("Post saved ❤️");
- }
+
+function savePost(el){
+
+  if(el.dataset.saved==="yes"){
+
+    el.innerText="♡";
+    el.dataset.saved="no";
+
+  }else{
+
+    el.innerText="🔖";
+    el.dataset.saved="yes";
+
+  }
 }
 
-function share(){
- if(navigator.share){
-   navigator.share({
-     title:"Archana-Sumit",
-     text:"Check this post ❤️",
-     url:location.href
-   });
- }else{
-   navigator.clipboard.writeText(location.href);
-   alert("Link copied ❤️");
- }
+
+function sharePost(){
+
+  if(navigator.share){
+
+    navigator.share({
+      title:"Archana-Sumit",
+      text:"Archana-Sumit ❤️",
+      url:location.href
+    });
+
+  }else{
+
+    navigator.clipboard.writeText(location.href)
+    .then(function(){
+      alert("Link copied ❤️");
+    })
+    .catch(function(){
+      alert("Share link: "+location.href);
+    });
+
+  }
 }
 
-function comment(){
- document.getElementById("modal").style.display="flex";
+
+function openComments(){
+  document.getElementById("commentModal")
+    .style.display="flex";
 }
 
-function closeComment(){
- document.getElementById("modal").style.display="none";
+
+function closeComments(){
+  document.getElementById("commentModal")
+    .style.display="none";
 }
+
 
 function addComment(){
- let text=document.getElementById("commentText").value.trim();
- if(!text)return;
 
- let d=document.createElement("div");
- d.innerHTML="<b>You:</b> "+text;
- d.style.padding="8px 0";
- document.getElementById("commentList").appendChild(d);
+  let input=document.getElementById("commentText");
+  let text=input.value.trim();
 
- document.getElementById("commentText").value="";
+  if(!text)return;
+
+  let list=document.getElementById("commentList");
+
+  if(list.innerText==="No comments yet."){
+    list.innerHTML="";
+  }
+
+  let comment=document.createElement("p");
+
+  comment.innerHTML=
+    "<b>You:</b> "+escapeHTML(text);
+
+  list.appendChild(comment);
+
+  input.value="";
 }
 
-function addPost(e){
- let file=e.target.files[0];
- if(!file)return;
 
- let url=URL.createObjectURL(file);
- let isVideo=file.type.startsWith("video");
+function escapeHTML(text){
 
- let post=document.createElement("div");
- post.className="post";
+  let div=document.createElement("div");
+  div.innerText=text;
+  return div.innerHTML;
 
- post.innerHTML=`
- <div class="head">
-   <div class="avatar">S</div>
-   <div class="username">Sumit</div>
-   <div class="more">•••</div>
- </div>
-
- <div class="media">
-   ${isVideo
-   ? `<video src="${url}" controls playsinline></video>`
-   : `<img src="${url}">`}
- </div>
-
- <div class="actions">
-   <span onclick="like(this)">♡</span>
-   <span onclick="comment()">💬</span>
-   <span onclick="share()">➤</span>
-   <span class="save" onclick="save(this)">♡</span>
- </div>
-
- <div class="likes">❤️ <span class="count">0</span> likes</div>
- <div class="caption"><b>Sumit</b> New memory ❤️</div>
- <div class="comments" onclick="comment()">View all comments</div>
- `;
-
- document.getElementById("feed").prepend(post);
- e.target.value="";
- window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function home(){
- window.scrollTo({top:0,behavior:"smooth"});
+
+function postMenu(){
+  alert("Post options\n\n• Save post\n• Share post\n• Report");
 }
+
+
+function addPost(event){
+
+  let file=event.target.files[0];
+
+  if(!file)return;
+
+  let url=URL.createObjectURL(file);
+
+  let video=file.type.startsWith("video");
+
+  let post=document.createElement("div");
+
+  post.className="post";
+
+  post.innerHTML=`
+
+  <div class="head">
+
+    <div class="avatar">S</div>
+
+    <div class="username">Sumit</div>
+
+    <div class="more"
+    onclick="postMenu()">•••</div>
+
+  </div>
+
+  <div class="media">
+
+    ${
+      video
+      ?
+      `<video src="${url}"
+      controls
+      playsinline></video>`
+      :
+      `<img src="${url}">`
+    }
+
+  </div>
+
+  <div class="actions">
+
+    <span onclick="like(this)">♡</span>
+
+    <span onclick="openComments()">💬</span>
+
+    <span onclick="sharePost()">➤</span>
+
+    <span class="save"
+    onclick="savePost(this)">♡</span>
+
+  </div>
+
+  <div class="likes">
+    ❤️ <span class="count">0</span> likes
+  </div>
+
+  <div class="caption">
+    <b>Sumit</b> New memory ❤️
+  </div>
+
+  <div class="comments"
+  onclick="openComments()">
+    View all comments
+  </div>
+
+  `;
+
+  document.getElementById("feed")
+    .prepend(post);
+
+  event.target.value="";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
 
 </script>
 
 </body>
 </html>
+
+
+
