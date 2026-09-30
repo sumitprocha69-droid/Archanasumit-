@@ -1,6 +1,6 @@
 
-    <!DOCTYPE html>
-<html lang="hi">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -8,276 +8,255 @@
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#fff;color:#111;
- font-family:Arial,sans-serif;
- padding-bottom:65px;
-}
+body{margin:0;background:#fafafa;font-family:Arial,sans-serif;color:#111}
 header{
- height:58px;border-bottom:1px solid #ddd;
- display:flex;align-items:center;justify-content:space-between;
- padding:0 18px;position:sticky;top:0;background:#fff;z-index:10;
+ position:sticky;top:0;z-index:10;background:white;
+ border-bottom:1px solid #ddd;padding:12px 15px;
+ display:flex;justify-content:space-between;align-items:center
 }
-.logo{font-size:27px;font-weight:800}
-.icon{font-size:29px;cursor:pointer}
-.feed{max-width:600px;margin:auto}
-.stories{
- display:flex;gap:15px;overflow-x:auto;padding:14px;
- border-bottom:1px solid #ddd;
-}
-.story{text-align:center;min-width:65px;font-size:12px}
+.logo{font-size:24px;font-weight:bold}
+nav{display:flex;gap:18px;font-size:24px}
+main{max-width:600px;margin:auto;padding-bottom:70px}
+.post{background:white;border-bottom:1px solid #ddd;margin-bottom:12px}
+.head{display:flex;align-items:center;padding:12px}
 .avatar{
- width:58px;height:58px;border-radius:50%;
- background:linear-gradient(45deg,#f90,#e24,#c2e);
- padding:3px;margin:auto;
+ width:40px;height:40px;border-radius:50%;
+ background:linear-gradient(45deg,#ff7a00,#ff006a,#833ab4);
+ display:grid;place-items:center;color:white;font-weight:bold
 }
-.avatar span{
- display:flex;width:100%;height:100%;
- border-radius:50%;background:#eee;
- align-items:center;justify-content:center;font-size:25px;
- border:2px solid white;
-}
-.post{border-bottom:1px solid #ddd;margin-bottom:8px}
-.posthead{display:flex;align-items:center;padding:11px 13px;gap:10px}
-.small{
- width:38px;height:38px;border-radius:50%;
- background:linear-gradient(45deg,#ff8a00,#e60073);
- display:flex;align-items:center;justify-content:center;
- color:white;font-weight:bold;
-}
-.name{font-weight:bold}
+.username{font-weight:bold;margin-left:10px}
 .more{margin-left:auto;font-size:22px}
 .media{
- width:100%;aspect-ratio:1/1;background:#eee;
+ width:100%;height:430px;background:#eee;
  display:flex;align-items:center;justify-content:center;
- overflow:hidden;
+ overflow:hidden
 }
 .media img,.media video{width:100%;height:100%;object-fit:cover}
-.placeholder{
- width:100%;height:100%;
- display:flex;align-items:center;justify-content:center;
- font-size:80px;background:linear-gradient(135deg,#ffd6e7,#d8e9ff);
-}
-.actions{
- display:flex;gap:18px;padding:10px 13px 5px;font-size:27px;
-}
+.placeholder{font-size:70px}
+.actions{display:flex;gap:18px;padding:12px 14px;font-size:27px}
 .actions span{cursor:pointer}
 .save{margin-left:auto}
-.likes{font-weight:bold;padding:0 13px}
-.caption{padding:6px 13px 12px}
-.comments{padding:0 13px 12px;color:#777;cursor:pointer}
+.likes,.caption,.comments{padding:0 14px 8px}
+.caption b{margin-right:5px}
+.comments{color:#666;cursor:pointer}
 .bottom{
- position:fixed;bottom:0;left:0;right:0;height:62px;
- background:#fff;border-top:1px solid #ddd;
- display:flex;justify-content:space-around;align-items:center;
- z-index:20;
+ position:fixed;bottom:0;left:0;right:0;background:white;
+ border-top:1px solid #ddd;display:flex;justify-content:space-around;
+ padding:12px;font-size:24px
 }
-.bottom button{
- border:0;background:none;font-size:25px;cursor:pointer;
+button{
+ border:0;background:#111;color:white;border-radius:10px;
+ padding:10px 15px;margin:10px;cursor:pointer
 }
-#panel{
- display:none;position:fixed;inset:0;background:white;z-index:30;
+#upload{display:none}
+.modal{
+ display:none;position:fixed;inset:0;background:#0008;
+ z-index:30;align-items:flex-end
 }
-.panelHead{
- height:58px;border-bottom:1px solid #ddd;
- display:flex;align-items:center;padding:0 15px;font-size:21px;font-weight:bold;
+.box{
+ background:white;width:100%;max-width:600px;margin:auto;
+ padding:20px;border-radius:20px 20px 0 0
 }
-.panelHead button{border:0;background:none;font-size:25px}
-.panelBody{padding:20px}
-input{
- width:100%;padding:13px;border:1px solid #ccc;
- border-radius:10px;font-size:16px;
-}
-button.actionBtn{
- margin-top:12px;padding:12px 18px;border:0;border-radius:10px;
- background:#111;color:white;font-size:16px;
-}
-.empty{text-align:center;margin-top:80px;color:#777}
+textarea{width:100%;height:80px;padding:10px;border:1px solid #ccc;border-radius:10px}
 </style>
 </head>
 
 <body>
 
 <header>
- <div class="icon" onclick="newPost()">＋</div>
- <div class="logo">Archana-Sumit</div>
- <div class="icon" onclick="openPanel('Notifications')">♡</div>
+<div class="logo">Archana-Sumit</div>
+<nav>
+<span onclick="home()">⌂</span>
+<span onclick="document.getElementById('upload').click()">＋</span>
+<span onclick="alert('Messages opened 💬')">♡</span>
+</nav>
 </header>
 
-<main class="feed">
-
-<div class="stories">
- <div class="story"><div class="avatar"><span>👩</span></div>Archana</div>
- <div class="story"><div class="avatar"><span>👨</span></div>Sumit</div>
- <div class="story"><div class="avatar"><span>🌸</span></div>Friends</div>
- <div class="story"><div class="avatar"><span>❤️</span></div>Love</div>
-</div>
+<main id="feed">
 
 <!-- POST 1 -->
 <div class="post">
- <div class="posthead">
-  <div class="small">A</div>
-  <div class="name">Archana</div>
-  <div class="more">•••</div>
- </div>
-
- <div class="media">
-  <div class="placeholder">🌸❤️</div>
- </div>
-
- <div class="actions">
-  <span onclick="like(this)">♡</span>
-  <span onclick="comment()">💬</span>
-  <span onclick="share()">➤</span>
-  <span class="save" onclick="save(this)">♡</span>
- </div>
-
- <div class="likes">❤️ <span class="count">12</span> likes</div>
- <div class="caption"><b>Archana</b> ❤️ Archana-Sumit</div>
- <div class="comments" onclick="comment()">View all comments</div>
+<div class="head">
+<div class="avatar">A</div>
+<div class="username">Archana</div>
+<div class="more">•••</div>
 </div>
+
+<div class="media">
+<div class="placeholder">🌸❤️</div>
+</div>
+
+<div class="actions">
+<span onclick="like(this)">♡</span>
+<span onclick="comment()">💬</span>
+<span onclick="share()">➤</span>
+<span class="save" onclick="save(this)">♡</span>
+</div>
+
+<div class="likes">❤️ <span class="count">12</span> likes</div>
+<div class="caption"><b>Archana</b> ❤️ Archana-Sumit</div>
+<div class="comments" onclick="comment()">View all comments</div>
+</div>
+
 
 <!-- POST 2 -->
 <div class="post">
- <div class="posthead">
-  <div class="small">S</div>
-  <div class="name">Sumit</div>
-  <div class="more">•••</div>
- </div>
+<div class="head">
+<div class="avatar">S</div>
+<div class="username">Sumit</div>
+<div class="more">•••</div>
+</div>
 
- <div class="media">
-  <div class="placeholder">📸✨</div>
- </div>
+<div class="media">
+<div class="placeholder">📸✨</div>
+</div>
 
- <div class="actions">
-  <span onclick="like(this)">♡</span>
-  <span onclick="comment()">💬</span>
-  <span onclick="share()">➤</span>
-  <span class="save" onclick="save(this)">♡</span>
- </div>
+<div class="actions">
+<span onclick="like(this)">♡</span>
+<span onclick="comment()">💬</span>
+<span onclick="share()">➤</span>
+<span class="save" onclick="save(this)">♡</span>
+</div>
 
- <div class="likes">❤️ <span class="count">8</span> likes</div>
- <div class="caption"><b>Sumit</b> Our beautiful memories ❤️</div>
- <div class="comments" onclick="comment()">View all comments</div>
+<div class="likes">❤️ <span class="count">8</span> likes</div>
+<div class="caption"><b>Sumit</b> Our beautiful memories ❤️</div>
+<div class="comments" onclick="comment()">View all comments</div>
 </div>
 
 </main>
 
-<div class="bottom">
- <button onclick="home()">⌂</button>
- <button onclick="openPanel('Videos')">▷</button>
- <button onclick="openPanel('Messages')">➤</button>
- <button onclick="openPanel('Search')">⌕</button>
- <button onclick="openPanel('Account')">◎</button>
+<div style="text-align:center">
+<label for="upload"><button>＋ Add Photo / Video</button></label>
+<input id="upload" type="file" accept="image/*,video/*" onchange="addPost(event)">
 </div>
 
-<div id="panel">
- <div class="panelHead">
-  <button onclick="closePanel()">‹</button>
-  <span id="panelTitle"></span>
- </div>
- <div class="panelBody" id="panelBody"></div>
+<div class="bottom">
+<span onclick="home()">⌂</span>
+<span onclick="alert('Search 🔍')">⌕</span>
+<span onclick="document.getElementById('upload').click()">＋</span>
+<span onclick="alert('Messages 💬')">♡</span>
+<span onclick="alert('Profile 👤')">◯</span>
+</div>
+
+<div class="modal" id="modal">
+<div class="box">
+<h3>Comments</h3>
+<textarea id="commentText" placeholder="Comment likho..."></textarea>
+<br>
+<button onclick="addComment()">Post</button>
+<button onclick="closeComment()">Close</button>
+<div id="commentList"></div>
+</div>
 </div>
 
 <script>
+
 function like(el){
- let post=el.closest('.post');
- let count=post.querySelector('.count');
+ let post=el.closest(".post");
+ let count=post.querySelector(".count");
  let n=parseInt(count.innerText);
- if(el.innerText==="♡"){
-   el.innerText="♥";
-   count.innerText=n+1;
- }else{
+
+ if(el.dataset.liked==="yes"){
    el.innerText="♡";
    count.innerText=n-1;
+   el.dataset.liked="no";
+ }else{
+   el.innerText="♥";
+   count.innerText=n+1;
+   el.dataset.liked="yes";
  }
 }
 
 function save(el){
- el.innerText=el.innerText==="♡"?"♥":"♡";
-}
-
-function comment(){
- let text=prompt("Comment likhiye:");
- if(text) alert("Comment added: "+text);
+ if(el.dataset.saved==="yes"){
+   el.innerText="♡";
+   el.dataset.saved="no";
+   alert("Removed from saved");
+ }else{
+   el.innerText="🔖";
+   el.dataset.saved="yes";
+   alert("Post saved ❤️");
+ }
 }
 
 function share(){
  if(navigator.share){
-   navigator.share({title:"Archana-Sumit",text:"Archana-Sumit"});
+   navigator.share({
+     title:"Archana-Sumit",
+     text:"Check this post ❤️",
+     url:location.href
+   });
  }else{
-   alert("Post share option");
+   navigator.clipboard.writeText(location.href);
+   alert("Link copied ❤️");
  }
 }
 
-function newPost(){
- alert("New post option — yahan photo/video upload feature add kiya ja sakta hai.");
+function comment(){
+ document.getElementById("modal").style.display="flex";
 }
 
-function openPanel(title){
- document.getElementById("panel").style.display="block";
- document.getElementById("panelTitle").innerText=title;
-
- let body=document.getElementById("panelBody");
-
- if(title==="Search"){
-  body.innerHTML=
-  '<h2>Search</h2>'+
-  '<input id="searchBox" placeholder="Search...">'+
-  '<button class="actionBtn" onclick="doSearch()">Search</button>'+
-  '<div id="result"></div>';
- }
-
- else if(title==="Messages"){
-  body.innerHTML=
-  '<h2>Messages</h2>'+
-  '<p>💬 Archana</p>'+
-  '<p>💬 Sumit</p>'+
-  '<input placeholder="Message likhiye...">'+
-  '<button class="actionBtn" onclick="alert(\'Message sent ❤️\')">Send</button>';
- }
-
- else if(title==="Account"){
-  body.innerHTML=
-  '<h2>Archana-Sumit</h2>'+
-  '<p>📸 Posts &nbsp; 2</p>'+
-  '<p>❤️ Likes &nbsp; 20</p>'+
-  '<button class="actionBtn" onclick="alert(\'Profile opened\')">Edit Profile</button>';
- }
-
- else if(title==="Videos"){
-  body.innerHTML=
-  '<h2>Videos</h2>'+
-  '<div class="empty">🎬 Videos yahan dikhenge</div>';
- }
-
- else if(title==="Notifications"){
-  body.innerHTML=
-  '<h2>Notifications</h2>'+
-  '<p>❤️ Someone liked your post</p>'+
-  '<p>💬 New comment</p>';
- }
+function closeComment(){
+ document.getElementById("modal").style.display="none";
 }
 
-function doSearch(){
- let q=document.getElementById("searchBox").value;
- document.getElementById("result").innerHTML=
- q ? "<p>🔎 Search result: <b>"+q+"</b></p>" :
- "<p>Please search something.</p>";
+function addComment(){
+ let text=document.getElementById("commentText").value.trim();
+ if(!text)return;
+
+ let d=document.createElement("div");
+ d.innerHTML="<b>You:</b> "+text;
+ d.style.padding="8px 0";
+ document.getElementById("commentList").appendChild(d);
+
+ document.getElementById("commentText").value="";
 }
 
-function closePanel(){
- document.getElementById("panel").style.display="none";
+function addPost(e){
+ let file=e.target.files[0];
+ if(!file)return;
+
+ let url=URL.createObjectURL(file);
+ let isVideo=file.type.startsWith("video");
+
+ let post=document.createElement("div");
+ post.className="post";
+
+ post.innerHTML=`
+ <div class="head">
+   <div class="avatar">S</div>
+   <div class="username">Sumit</div>
+   <div class="more">•••</div>
+ </div>
+
+ <div class="media">
+   ${isVideo
+   ? `<video src="${url}" controls playsinline></video>`
+   : `<img src="${url}">`}
+ </div>
+
+ <div class="actions">
+   <span onclick="like(this)">♡</span>
+   <span onclick="comment()">💬</span>
+   <span onclick="share()">➤</span>
+   <span class="save" onclick="save(this)">♡</span>
+ </div>
+
+ <div class="likes">❤️ <span class="count">0</span> likes</div>
+ <div class="caption"><b>Sumit</b> New memory ❤️</div>
+ <div class="comments" onclick="comment()">View all comments</div>
+ `;
+
+ document.getElementById("feed").prepend(post);
+ e.target.value="";
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function home(){
- closePanel();
  window.scrollTo({top:0,behavior:"smooth"});
 }
+
 </script>
 
 </body>
 </html>
-
-
-
